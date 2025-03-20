@@ -18,4 +18,4 @@ runs:
       shell: bash
       run: |
         echo "Deploying project from ${{ inputs.project_dir }}"
-        agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} 
+        agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} --ci
