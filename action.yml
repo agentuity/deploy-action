@@ -12,10 +12,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup Agentuity
+    - name: Setup Agentuity CLI
       uses: agentuity/setup-agentuity-action@main
-    - name: Run Agentuity
+    - name: Deploy Project
       shell: bash
       run: |
-        cd ${{ inputs.project_dir }}
-        agentuity bundle --install --deploy --api-key ${{ inputs.api_key }} 
+        echo "Deploying project from ${{ inputs.project_dir }}"
+        agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} 

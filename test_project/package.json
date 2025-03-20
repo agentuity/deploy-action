@@ -1,0 +1,33 @@
+{
+  "name": "test_project_action",
+  "description": "This is a test project for the Agentuity Deploy Action",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "agentuity build",
+    "prestart": "agentuity bundle",
+    "start": "bun run .agentuity/index.js"
+  },
+  "keywords": [
+    "agentuity",
+    "agent",
+    "ai",
+    "ai agent",
+    "bun"
+  ],
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@agentuity/sdk": "^0.0.88",
+    "@ai-sdk/openai": "^1.2.7",
+    "ai": "^4.1.66",
+    "openai": "^4.89.0"
+  },
+  "module": "index.ts"
+}

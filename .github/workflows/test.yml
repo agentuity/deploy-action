@@ -3,9 +3,6 @@ name: Test Setup Agentuity Action
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  # Allow manual trigger
   workflow_dispatch:
 
 jobs:
@@ -14,13 +11,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # Setup the CLI
-      - name: Setup Agentuity CLI
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - name: Deploy Agentuity Project
         uses: ./
         with:
-          api_key: ${{ secrets.AGENTUITY_API_KEY }}
-      # Verify CLI works
-      - name: Verify CLI works
-        run: agentuity version
-        shell: bash
-          
+          api_key: ${{ secrets.AGENTUITY_API_KEY }} 
+          project_dir: ./test_project
