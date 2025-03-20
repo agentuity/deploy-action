@@ -15,8 +15,8 @@ A GitHub Action to deploy Agentuity projects to the cloud.
 
 | Name | Description | Required | Default |
 |------|-------------|----------|---------|
-| `api_key` | Agentuity API key for authentication | Yes | - |
-| `project_dir` | Path to the project directory | No | "." |
+| `api_key` | Agentuity API key for authentication | Yes | NA |
+| `project_dir` | Path to the project directory | No | . |
 
 ## Example
 
