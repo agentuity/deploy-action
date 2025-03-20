@@ -1,0 +1,21 @@
+name: Agentuity Deploy Action
+description: "Deploy an Agentuity project"
+author: "Agentuity"
+inputs:
+  project_dir:
+    description: "Path to the project directory"
+    required: false
+    default: "."
+  api_key:
+    description: "Agentuity API key for authentication"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Agentuity
+      uses: agentuity/setup-agentuity-action@main
+    - name: Run Agentuity
+      shell: bash
+      run: |
+        cd ${{ inputs.project_dir }}
+        agentuity bundle --install --deploy --api-key ${{ inputs.api_key }} 
