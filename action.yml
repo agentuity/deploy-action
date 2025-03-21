@@ -1,6 +1,9 @@
 name: Agentuity Deploy Action
 description: "Deploy an Agentuity project"
 author: "Agentuity"
+branding:
+  icon: 'activity'
+  color: 'gray-dark'
 inputs:
   project_dir:
     description: "Path to the project directory"
