@@ -42,8 +42,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: agentuity/deploy-action@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          api_key: ${{ secrets.AGENTUITY_API_KEY }}
+          bun-version: latest
+      - name: Deploy Agentuity Project
+        uses: agentuity/deploy-action@@v1
+        with:
+          api_key: ${{ secrets.AGENTUITY_API_KEY }} 
 ```
