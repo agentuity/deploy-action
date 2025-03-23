@@ -49,7 +49,7 @@ jobs:
         with:
           bun-version: latest
       - name: Deploy Agentuity Project
-        uses: agentuity/deploy-action@@v1
+        uses: agentuity/deploy-action@v1
         with:
           api_key: ${{ secrets.AGENTUITY_API_KEY }} 
 ```
