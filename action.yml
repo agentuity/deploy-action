@@ -22,4 +22,6 @@ runs:
       run: |
         echo "Deploying project from ${{ inputs.project_dir }}"
         cd ${{ inputs.project_dir }} && npm install && cd ..
-        agentuity bundle --dir ${{ inputs.project_dir }} --deploy --api-key ${{ inputs.api_key }} --ci
+        echo "Authenticating with Agentuity API"
+        agentuity login --api-key ${{ inputs.api_key }}
+        agentuity bundle --dir ${{ inputs.project_dir }} --deploy --ci
