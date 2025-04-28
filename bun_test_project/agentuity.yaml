@@ -6,7 +6,7 @@
 # The version semver range required to run this project
 version: '>=0.0.70'
 # The ID of the project which is automatically generated
-project_id: proj_2FAHWTj67dc53acxeRC6YvYpuhrZ8Y77
+project_id: proj_4f2ef43e4d24298ad8214dfa65b89dae
 # The name of the project which is editable
 name: github_action_bun_test_project
 # The description of the project which is editable
@@ -66,7 +66,7 @@ bundler:
 # The agents that are part of this project
 agents:
   - # The ID of the Agent which is automatically generated
-    id: agent_ae815f237107bb4ab7791e1f6bc488fa
+    id: agent_0458ac7b9e082e834e7112f5819bdac7
     # The name of the Agent which is editable
     name: myagent
     # The description of the Agent which is editable
