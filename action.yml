@@ -21,4 +21,5 @@ runs:
       shell: bash
       run: |
         echo "Deploying project from ${{ inputs.project_dir }}"
-        agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} --ci --no-frozen-lockfile
+        cd ${{ inputs.project_dir }} && npm install && cd ..
+        agentuity bundle --dir ${{ inputs.project_dir }} --deploy --api-key ${{ inputs.api_key }} --ci
