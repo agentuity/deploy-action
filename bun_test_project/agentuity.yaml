@@ -8,7 +8,7 @@ version: '>=0.0.70'
 # The ID of the project which is automatically generated
 project_id: proj_2FAHWTj67dc53acxeRC6YvYpuhrZ8Y77
 # The name of the project which is editable
-name: test_project_action
+name: github_action_bun_test_project
 # The description of the project which is editable
 description: This is a test project for the Agentuity Deploy Action
 # The development configuration for the project
@@ -66,8 +66,8 @@ bundler:
 # The agents that are part of this project
 agents:
   - # The ID of the Agent which is automatically generated
-    id: agent_R5OOBZc67dc53acc873FZa8eW5sIHdp7
+    id: agent_ae815f237107bb4ab7791e1f6bc488fa
     # The name of the Agent which is editable
-    name: agent_1
+    name: myagent
     # The description of the Agent which is editable
-    description: he is a test agent
+    description: its a test agent for the github action

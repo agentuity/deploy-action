@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "test_project_action",
+      "name": "github_action_test_project",
       "dependencies": {
         "@agentuity/sdk": "^0.0.88",
         "@ai-sdk/openai": "^1.2.7",

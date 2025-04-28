@@ -1,5 +1,5 @@
 {
-  "name": "test_project_action",
+  "name": "github_action_test_project",
   "description": "This is a test project for the Agentuity Deploy Action",
   "version": "0.0.1",
   "main": "index.js",
