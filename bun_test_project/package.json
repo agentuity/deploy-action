@@ -1,5 +1,5 @@
 {
-  "name": "test_project_action",
+  "name": "github_action_test_project",
   "description": "This is a test project for the Agentuity Deploy Action",
   "version": "0.0.1",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@agentuity/sdk": "^0.0.88",
+    "@agentuity/sdk": "^0.0.108",
     "@ai-sdk/openai": "^1.2.7",
     "ai": "^4.1.66",
     "openai": "^4.89.0"

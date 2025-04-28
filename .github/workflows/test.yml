@@ -3,6 +3,8 @@ name: Test Setup Agentuity Action
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -19,4 +21,4 @@ jobs:
         uses: ./
         with:
           api_key: ${{ secrets.AGENTUITY_API_KEY }} 
-          project_dir: ./test_project
+          project_dir: ./bun_test_project
