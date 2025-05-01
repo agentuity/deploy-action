@@ -15,23 +15,19 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Display Branch Name
+      run: echo "Current Branch: ${{ github.ref }}"
     - name: Setup Agentuity CLI
       uses: agentuity/setup-action@main
-    - name: Get branch names.
-      id: branch-names
-      uses: tj-actions/branch-names@v8
-    - name: Running on a pull request branch.
-      if: steps.branch-names.outputs.is_default == 'false'
-      run: |
-        echo "Running on pr: ${{ steps.branch-names.outputs.current_branch }}"
-    # Outputs: "Running on pr: feature/test"
     - name: Deploy Project
       shell: bash
       run: |
         echo "Deploying project from ${{ inputs.project_dir }}"
         agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} --ci \
           --ci-remote-url=${{ github.server_url }}/${{ github.repository }} \
-          --ci-branch=${{ steps.branch-names.outputs.current_branch }} \
+          --ci-branch=${{ github.ref_name }} \
           --ci-commit=${{ github.sha }} \
           --ci-message="${{ github.event.head_commit.message }}" \
           --ci-git-provider=github
