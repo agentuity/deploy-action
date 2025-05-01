@@ -19,15 +19,15 @@ runs:
       uses: actions/checkout@v2
     - name: Display Branch Name
       run: echo "Current Branch: ${{ github.ref }}"
-    - name: Setup Agentuity CLI
-      uses: agentuity/setup-action@main
-    - name: Deploy Project
-      shell: bash
-      run: |
-        echo "Deploying project from ${{ inputs.project_dir }}"
-        agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} --ci \
-          --ci-remote-url=${{ github.server_url }}/${{ github.repository }} \
-          --ci-branch=${{ github.ref_name }} \
-          --ci-commit=${{ github.sha }} \
-          --ci-message="${{ github.event.head_commit.message }}" \
-          --ci-git-provider=github
+    # - name: Setup Agentuity CLI
+    #   uses: agentuity/setup-action@main
+    # - name: Deploy Project
+    #   shell: bash
+    #   run: |
+    #     echo "Deploying project from ${{ inputs.project_dir }}"
+    #     agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} --ci \
+    #       --ci-remote-url=${{ github.server_url }}/${{ github.repository }} \
+    #       --ci-branch=${{ github.ref_name }} \
+    #       --ci-commit=${{ github.sha }} \
+    #       --ci-message="${{ github.event.head_commit.message }}" \
+    #       --ci-git-provider=github
