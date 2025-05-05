@@ -16,9 +16,16 @@ runs:
   using: "composite"
   steps:
     - name: Echo CI Info
+      id: construct_tags
       shell: bash
+        env:
+          GIT_BRANCH: ${{ steps.branch-name.outputs.current_branch }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+          MERGE_SHA: ${{ github.sha }}
       run: |
-        echo "ci-remote-url=${{ github.server_url }}/${{ github.repository }}"
+        echo $GIT_BRANCH
+        echo $PR_SHA
+        echo $MERGE_SHA
         echo "ci-branch=${{ github.ref_name }}"
         echo "ci-commit=${{ github.sha }}"
         echo "ci-message=${{ github.event.head_commit.message }}"
