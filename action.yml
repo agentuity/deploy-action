@@ -16,16 +16,10 @@ runs:
   using: "composite"
   steps:
     - name: Echo CI Info
-      id: construct_tags
       shell: bash
-      env:
-        GIT_BRANCH: ${{ steps.branch-name.outputs.current_branch }}
-        PR_SHA: ${{ github.event.pull_request.head.sha }}
-        MERGE_SHA: ${{ github.sha }}
       run: |
-        echo $GIT_BRANCH
-        echo "ci-branch=${{ github.ref_name }}"
-        echo "ci-commit=${{ github.sha }}"
+        echo "ci-branch=${{ steps.branch-name.outputs.current_branch }}"
+        echo "ci-commit=${{ steps.construct_tags.outputs.sha }}"
         echo "ci-message=${{ github.event.head_commit.message }}"
         echo "ci-git-provider=github"
     # To enable Agentuity deployment, uncomment the following steps:
