@@ -16,7 +16,7 @@
 ```yaml
 - uses: actions/checkout@v4
   with:
-    fetch-depth: 0
+    fetch-depth: 2
 ```
 
 ## Usage
@@ -48,8 +48,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Install Bun
         uses: oven-sh/setup-bun@v1
         with:
