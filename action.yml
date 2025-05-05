@@ -40,7 +40,7 @@ runs:
       echo "CI_COMMIT=$CI_COMMIT"
 
       # Get the commit message
-      COMMIT_MSG=$(git log -1 --pretty=format:"%s" $CI_COMMIT 2>/dev/null | tr -d '\n\r' | tr -d '"' | tr -d "'")
+      COMMIT_MSG=$(git log -1 --pretty=format:"%s" ${{ github.event.pull_request.head.sha || github.sha }} 2>/dev/null | tr -d '\n\r' | tr -d '"' | tr -d "'")
       if [ -z "$COMMIT_MSG" ]; then
         echo "::warning::Could not find commit message for ${{ github.event.pull_request.head.sha }}. Setting LATEST_COMMIT_MSG to empty string. If you need commit info, add actions/checkout@v4 with fetch-depth: 0 before this action."
       fi
