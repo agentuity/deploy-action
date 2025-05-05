@@ -29,4 +29,4 @@ runs:
     shell: bash
     run: |
       echo "Deploying project from ${{ inputs.project_dir }}"
-      agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key=${{ inputs.api_key }} --ci-remote-url=${{ github.server_url }}/${{ github.repository }} --ci-branch=${{ github.head_ref }} --ci-commit=${{ github.event.pull_request.head.sha }} --ci-git-provider=github --ci-commit-message=${{ env.LATEST_COMMIT_MSG }} --ci 
+      agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key=${{ inputs.api_key }} --ci-remote-url=${{ github.server_url }}/${{ github.repository }} --ci-branch=${{ github.head_ref }} --ci-commit=${{ github.event.pull_request.head.sha }} --ci-git-provider=github --ci-message=${{ env.LATEST_COMMIT_MSG }} --ci 
