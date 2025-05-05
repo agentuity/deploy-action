@@ -15,31 +15,15 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Echo CI Info
-      shell: bash
-      run: |
-        echo "${{ github }}"
-        echo "ci-remote-url=${{ github.server_url }}/${{ github.repository }}"
-        echo "ci-branch=${{ github.head_ref }}"
-        echo "ci-commit=${{ github.event.pull_request.head.sha }}"
-        echo "ci-message=${{ github.event.pull_request.head.message }}"
-        echo "ci-git-provider=github"
-    - name: Dump GitHub context
-      shell: bash
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: |
-        echo "$GITHUB_CONTEXT"
-    # To enable Agentuity deployment, uncomment the following steps:
-    # - name: Setup Agentuity CLI
-    #   uses: agentuity/setup-action@main
-    # - name: Deploy Project
-    #   shell: bash
-    #   run: |
-    #     echo "Deploying project from ${{ inputs.project_dir }}"
-    #     agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} --ci \
-    #       --ci-remote-url=${{ github.server_url }}/${{ github.repository }} \
-    #       --ci-branch=${{ github.ref_name }} \
-    #       --ci-commit=${{ github.sha }} \
-    #       --ci-message="${{ github.event.head_commit.message }}" \
-    #       --ci-git-provider=github
+  - name: Setup Agentuity CLI
+    uses: agentuity/setup-action@main
+  - name: Deploy Project
+    shell: bash
+    run: |
+      echo "Deploying project from ${{ inputs.project_dir }}"
+      agentuity bundle --dir ${{ inputs.project_dir }} 
+      --install --deploy --api-key ${{ inputs.api_key }} 
+      --ci ci-remote-url ${{ github.server_url }}/${{ github.repository }} 
+      --ci-branch ${{ github.head_ref }} 
+      --ci-commit ${{ github.event.pull_request.head.sha }} 
+      --ci-git-provider github
