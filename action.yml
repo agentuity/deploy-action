@@ -25,6 +25,7 @@ runs:
         echo "::warning::Could not find commit message for ${{ github.event.pull_request.head.sha }}. Setting LATEST_COMMIT_MSG to empty string. If you need commit info, add actions/checkout@v4 with fetch-depth: 0 before this action."
       fi
       echo "LATEST_COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
+      echo "LATEST_COMMIT_MSG=$COMMIT_MSG"
   - name: Deploy Project
     shell: bash
     run: |
