@@ -18,8 +18,9 @@ runs:
     - name: Echo CI Info
       shell: bash
       run: |
-        echo "ci-branch=${{ steps.branch-name.outputs.current_branch }}"
-        echo "ci-commit=${{ steps.construct_tags.outputs.sha }}"
+        echo "ci-remote-url=${{ github.server_url }}/${{ github.repository }}"
+        echo "ci-branch=${{ github.head_ref }}"
+        echo "ci-commit=${{ github.sha }}"
         echo "ci-message=${{ github.event.head_commit.message }}"
         echo "ci-git-provider=github"
     # To enable Agentuity deployment, uncomment the following steps:
