@@ -25,6 +25,7 @@ runs:
         echo "ci-message=${{ github.event.pull_request.head.message }}"
         echo "ci-git-provider=github"
     - name: Dump GitHub context
+      shell: bash
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
       run: |
