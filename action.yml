@@ -19,6 +19,14 @@ runs:
       uses: actions/checkout@v2
     - name: Display Branch Name
       run: echo "Current Branch: ${{ github.ref }}"
+    - name: Echo CI Info
+      shell: bash
+      run: |
+        echo "ci-remote-url=${{ github.server_url }}/${{ github.repository }}"
+        echo "ci-branch=${{ github.ref_name }}"
+        echo "ci-commit=${{ github.sha }}"
+        echo "ci-message=${{ github.event.head_commit.message }}"
+        echo "ci-git-provider=github"
     # To enable Agentuity deployment, uncomment the following steps:
     # - name: Setup Agentuity CLI
     #   uses: agentuity/setup-action@main
