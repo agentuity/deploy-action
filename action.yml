@@ -17,8 +17,6 @@ runs:
   steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-    - name: Display Branch Name
-      run: echo "Current Branch: ${{ github.ref }}"
     - name: Echo CI Info
       shell: bash
       run: |
