@@ -15,10 +15,22 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup Agentuity CLI
-      uses: agentuity/setup-action@main
-    - name: Deploy Project
-      shell: bash
-      run: |
-        echo "Deploying project from ${{ inputs.project_dir }}"
-        agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} --ci
+  - name: Setup Agentuity CLI
+    uses: agentuity/setup-action@main
+  - name: Set latest commit message env var
+    shell: bash
+    run: |
+      COMMIT_MSG=$(git log -1 --pretty=format:"%s" ${{ github.event.pull_request.head.sha }} 2>/dev/null | tr -d '\n\r' | tr -d '"' | tr -d "'")
+      if [ -z "$COMMIT_MSG" ]; then
+        echo "::warning::Could not find commit message for ${{ github.event.pull_request.head.sha }}. Setting LATEST_COMMIT_MSG to empty string. If you need commit info, add actions/checkout@v4 with fetch-depth: 0 before this action."
+      fi
+      echo "LATEST_COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
+      echo "LATEST_COMMIT_MSG=$COMMIT_MSG"
+      CI_LOGS_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      echo "CI_LOGS_URL=$CI_LOGS_URL" >> $GITHUB_ENV
+      echo "CI_LOGS_URL=$CI_LOGS_URL"
+  - name: Deploy Project
+    shell: bash
+    run: |
+      echo "Deploying project from ${{ inputs.project_dir }}"
+      agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key=${{ inputs.api_key }} --ci --ci-remote-url=${{ github.server_url }}/${{ github.repository }} --ci-branch=${{ github.head_ref }} --ci-commit="${{ github.event.pull_request.head.sha }}" --ci-git-provider=github --ci-message="${{ env.LATEST_COMMIT_MSG }}" --ci-logs-url="${{ env.CI_LOGS_URL }}" 
