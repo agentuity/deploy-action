@@ -26,8 +26,11 @@ runs:
       fi
       echo "LATEST_COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
       echo "LATEST_COMMIT_MSG=$COMMIT_MSG"
+      CI_LOGS_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      echo "CI_LOGS_URL=$CI_LOGS_URL" >> $GITHUB_ENV
+      echo "CI_LOGS_URL=$CI_LOGS_URL"
   - name: Deploy Project
     shell: bash
     run: |
       echo "Deploying project from ${{ inputs.project_dir }}"
-      agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key=${{ inputs.api_key }} --ci-remote-url=${{ github.server_url }}/${{ github.repository }} --ci-branch=${{ github.head_ref }} --ci-commit="${{ github.event.pull_request.head.sha }}" --ci-git-provider=github --ci-message="${{ env.LATEST_COMMIT_MSG }}" --ci 
+      agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key=${{ inputs.api_key }} --ci --ci-remote-url=${{ github.server_url }}/${{ github.repository }} --ci-branch=${{ github.head_ref }} --ci-commit="${{ github.event.pull_request.head.sha }}" --ci-git-provider=github --ci-message="${{ env.LATEST_COMMIT_MSG }}" --ci-logs-url="${{ env.CI_LOGS_URL }}" 
