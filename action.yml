@@ -19,9 +19,16 @@ runs:
     uses: agentuity/setup-action@main
   - name: Print latest commit message
     shell: bash
-    run: git log -1 --pretty=format:"%s"
+    run: |
+      echo "Latest commit message:"
+      git log -1 --pretty=format:"%s" ${{ github.event.pull_request.head.sha }}
+  - name: Set latest commit message env var
+    shell: bash
+    run: |
+      COMMIT_MSG=$(git log -1 --pretty=format:"%s" ${{ github.event.pull_request.head.sha }})
+      echo "LATEST_COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
   - name: Deploy Project
     shell: bash
     run: |
       echo "Deploying project from ${{ inputs.project_dir }}"
-      agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key=${{ inputs.api_key }} --ci-remote-url=${{ github.server_url }}/${{ github.repository }} --ci-branch=${{ github.head_ref }} --ci-commit=${{ github.event.pull_request.head.sha }} --ci-git-provider=github --ci 
+      agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key=${{ inputs.api_key }} --ci-remote-url=${{ github.server_url }}/${{ github.repository }} --ci-branch=${{ github.head_ref }} --ci-commit=${{ github.event.pull_request.head.sha }} --ci-git-provider=github --ci-commit-message=${{ env.LATEST_COMMIT_MSG }} --ci 
