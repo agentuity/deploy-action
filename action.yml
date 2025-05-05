@@ -20,7 +20,7 @@ runs:
       run: |
         echo "ci-remote-url=${{ github.server_url }}/${{ github.repository }}"
         echo "ci-branch=${{ github.head_ref }}"
-        echo "ci-commit=${{ github.sha }}"
+        echo "ci-commit=${{ github.event.pull_request.head.sha }}"
         echo "ci-message=${{ github.event.head_commit.message }}"
         echo "ci-git-provider=github"
     # To enable Agentuity deployment, uncomment the following steps:
