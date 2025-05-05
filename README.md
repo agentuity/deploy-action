@@ -11,7 +11,13 @@
 
 # Agentuity Deploy Action
 
-A GitHub Action to deploy Agentuity projects to the cloud.
+**Important:** To ensure commit information is available, add the following step before using this action:
+
+```yaml
+- uses: actions/checkout@v4
+  with:
+    fetch-depth: 2
+```
 
 ## Usage
 
@@ -42,8 +48,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Install Bun
         uses: oven-sh/setup-bun@v1
         with:
