@@ -18,7 +18,7 @@ runs:
     - name: Echo CI Info
       shell: bash
       run: |
-        echo "${{ github}}"
+        echo "${{ github }}"
         echo "ci-remote-url=${{ github.server_url }}/${{ github.repository }}"
         echo "ci-branch=${{ github.head_ref }}"
         echo "ci-commit=${{ github.event.pull_request.head.sha }}"
