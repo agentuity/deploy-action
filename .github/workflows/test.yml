@@ -16,7 +16,7 @@ jobs:
         with:
           bun-version: latest
       - name: Deploy Agentuity Project
-        uses: ./
+        uses: ../../
         with:
           api_key: ${{ secrets.AGENTUITY_API_KEY }} 
           project_dir: ./bun_test_project
