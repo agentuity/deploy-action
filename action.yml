@@ -15,10 +15,52 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup Agentuity CLI
-      uses: agentuity/setup-action@main
-    - name: Deploy Project
-      shell: bash
-      run: |
-        echo "Deploying project from ${{ inputs.project_dir }}"
-        agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key ${{ inputs.api_key }} --ci
+  - name: Setup Agentuity CLI
+    uses: agentuity/setup-action@main
+  - name: Set latest commit message env var
+    shell: bash
+    run: |
+      # Get the commit message
+      COMMIT_MSG=$(git log -1 --pretty=format:"%s" ${{ github.event.pull_request.head.sha }} 2>/dev/null | tr -d '\n\r' | tr -d '"' | tr -d "'")
+      if [ -z "$COMMIT_MSG" ]; then
+        echo "::warning::Could not find commit message for ${{ github.event.pull_request.head.sha }}. Setting LATEST_COMMIT_MSG to empty string. If you need commit info, add actions/checkout@v4 with fetch-depth: 0 before this action."
+      fi
+      echo "LATEST_COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
+      echo "LATEST_COMMIT_MSG=$COMMIT_MSG"
+
+      # Get the logs URL
+      CI_LOGS_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      echo "CI_LOGS_URL=$CI_LOGS_URL" >> $GITHUB_ENV
+      echo "CI_LOGS_URL=$CI_LOGS_URL"
+
+      # Get the remote URL
+      echo "CI_REMOTE_URL=${{ github.server_url }}/${{ github.repository }}" >> $GITHUB_ENV
+      echo "CI_REMOTE_URL=${{ github.server_url }}/${{ github.repository }}"
+
+      # Get the branch
+      echo "CI_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+      echo "CI_BRANCH=$CI_BRANCH"
+
+      # If the branch is not set, use the ref
+      if [ -z "$CI_BRANCH" ]; then
+        CI_BRANCH=${{ github.ref }}
+        echo "CI_BRANCH=${{ github.ref }}" >> $GITHUB_ENV
+        echo "CI_BRANCH=$CI_BRANCH"        
+      fi
+
+      # Get the commit
+      echo "CI_COMMIT=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
+      echo "CI_COMMIT=$CI_COMMIT"
+
+      if [ -z "$CI_COMMIT" ]; then
+        CI_COMMIT=${{ github.sha }}
+        echo "CI_COMMIT=${{ github.sha }}" >> $GITHUB_ENV
+        echo "CI_COMMIT=$CI_COMMIT"        
+      fi
+
+
+  - name: Deploy Project
+    shell: bash
+    run: |
+      echo "Deploying project from ${{ inputs.project_dir }}"
+      agentuity bundle --dir ${{ inputs.project_dir }} --install --deploy --api-key=${{ inputs.api_key }} --ci --ci-remote-url=${{ env.CI_REMOTE_URL }} --ci-branch=${{ env.CI_BRANCH }} --ci-commit="${{ env.CI_COMMIT }}" --ci-git-provider=github --ci-message="${{ env.LATEST_COMMIT_MSG }}" --ci-logs-url="${{ env.CI_LOGS_URL }}" 
