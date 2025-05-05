@@ -11,7 +11,13 @@
 
 # Agentuity Deploy Action
 
-A GitHub Action to deploy Agentuity projects to the cloud.
+**Important:** To ensure commit information is available, add the following step before using this action:
+
+```yaml
+- uses: actions/checkout@v4
+  with:
+    fetch-depth: 0
+```
 
 ## Usage
 

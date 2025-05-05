@@ -17,15 +17,13 @@ runs:
   steps:
   - name: Setup Agentuity CLI
     uses: agentuity/setup-action@main
-  - name: Print latest commit message
-    shell: bash
-    run: |
-      echo "Latest commit message:"
-      git log -1 --pretty=format:"%s" ${{ github.event.pull_request.head.sha }}
   - name: Set latest commit message env var
     shell: bash
     run: |
-      COMMIT_MSG=$(git log -1 --pretty=format:"%s" ${{ github.event.pull_request.head.sha }})
+      COMMIT_MSG=$(git log -1 --pretty=format:"%s" ${{ github.event.pull_request.head.sha }} 2>/dev/null || true)
+      if [ -z "$COMMIT_MSG" ]; then
+        echo "::warning::Could not find commit message for ${{ github.event.pull_request.head.sha }}. Setting LATEST_COMMIT_MSG to empty string. If you need commit info, add actions/checkout@v4 with fetch-depth: 0 before this action."
+      fi
       echo "LATEST_COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
   - name: Deploy Project
     shell: bash
